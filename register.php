@@ -3,7 +3,7 @@
 require_once "config.php";
 
 $email = $nombre = $apellido = $username = $password = $confirm_password = $image = "";
-$email_err = $nombre_err = $apellido_err = $username_err = $password_err = $confirm_password_err = "";
+$email_err = $nombre_err = $apellido_err = $username_err = $password_err = $confirm_password_err = $image_err = "";
 
 function validatePass($pass)
 {
@@ -120,10 +120,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    if (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) {
+    if (empty($_FILES['image']['tmp_name'])) {
+        $image_err = "Por favor seleccione una imagen.";
+
+
+    } else {
         $imageData = file_get_contents($_FILES['image']['tmp_name']);
-
-
     }
 
 
@@ -174,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    if (empty($email_err) && empty($nombre_err) && empty($apellido_err) && empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
+    if (empty($email_err) && empty($nombre_err) && empty($apellido_err) && empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($image_err)) {
 
         echo '<img src="data:image/jpeg;base64,' . $imageBase64 . '" alt="User Image">';
         $sql = "INSERT INTO users (name, surname, email, username, password,image) VALUES (?, ?, ?, ?, ?,?)";
@@ -301,8 +303,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
                             <label>Selecciona foto de perfil</label>
-                            <input type="file" accept="image/jpeg" name="image">
-                            <span class="help-block">
+                            <input type="file" accept="image/jpeg" required name="image">
+                            <br>
+                            <span class="help-block ">
+
                                 <?php echo $image_err; ?>
                             </span>
                         </div>
@@ -342,7 +346,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label>Confirmar Contraseña</label>
                             <input type="password" required name="confirm_password" class="form-control"
                                 value="<?php echo $confirm_password; ?>">
-                            <span class="help-block">
+                            <span class="help-block ">
                                 <?php echo $confirm_password_err; ?>
                             </span>
                         </div>

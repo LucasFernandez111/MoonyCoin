@@ -92,11 +92,9 @@
                             <a class="dropdown-item" href="./pages/changeName.php"><span class="item-text">
                                     Cambiar Nombre</span></a>
                             <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="./pages/changeApelli.php"><span class="item-text">
+                            <a class="dropdown-item" href="./pages/changeSurname.php"><span class="item-text">
                                     Cambiar Apellido</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
-                                    ver usuarios</span></a>
+
 
                             <?php
 
@@ -104,7 +102,11 @@
 
                             $userAdmin = 'admin1';
                             if ($dataUser['user'] === $userAdmin) {
-                                echo '  <div class="dropdown-items-divide-hr"></div>
+                                echo ' 
+                                <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
+                                    ver usuarios</span></a>
+                                <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="register.php"><span class="item-text">
                                     Agregar Usuarios</span></a>';
                             }
@@ -113,6 +115,16 @@
 
                             ?>
 
+                            <?php
+                            if (isset($_COOKIE['dataUser'])) {
+                                echo '<div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/uploadFilePage.php"><span class="item-text">
+    Subir archivos</span></a><div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/showFilePage.php"><span class="item-text">
+    Ver Archivos</span></a>';
+                            }
+                            ?>
+
+
+
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="logout.php"><span class="item-text">Cerrar sesión</span></a>
                         </div>
@@ -120,28 +132,33 @@
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="#features">CARACTERÍSTICAS</a>
                     </li>
-                    <li class="nav-item">
 
-                        <?php
-                        if (!isset($_COOKIE['dataUser'])) {
-                            echo ' <a class="btn-outline-sm" href="login.php"> ACCESO</a></li>';
-                        } else {
 
-                            $dataUser = unserialize($_COOKIE['dataUser']);
+                    <?php
+                    if (!isset($_COOKIE['dataUser'])) {
+                        echo ' <a class="btn-outline-sm" href="login.php"> ACCESO</a></li>';
+                    } else {
 
-                            $showImage = getImage();
+                        $dataUser = unserialize($_COOKIE['dataUser']);
 
-                            echo '<div class="d-flex justify-content-center align-items-center " style="gap: 12px;">
-                            <span class="text-white">' . $dataUser['user'] . '</span>
-                            <img src="data:image/jpeg;base64,' . $showImage . '"  class ="rounded-circle img-profile">
-                            </div>
+                        $showImage = getImage();
+
+                        echo '<li class="nav-item">
+                      
+
+                            <span class="nav text-white text-center mt-1" >' . $dataUser['user'] . '</span>
+                            </li>
+                            <li class="nav-item">
+                            <img src="data:image/jpeg;base64,' . $showImage . '"  class ="rounded-circle img-profile mb-1 ml-2 ">
+                            
+                            </li>
                           
                             ';
 
 
 
-                        }
-                        ?>
+                    }
+                    ?>
 
 
 
