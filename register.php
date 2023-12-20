@@ -2,7 +2,7 @@
 
 require_once "config.php";
 
-$email = $nombre = $apellido = $username = $password = $confirm_password = "";
+$email = $nombre = $apellido = $username = $password = $confirm_password = $image = "";
 $email_err = $nombre_err = $apellido_err = $username_err = $password_err = $confirm_password_err = "";
 
 function validatePass($pass)
@@ -120,6 +120,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
+    if (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) {
+        $imageData = file_get_contents($_FILES['image']['tmp_name']);
+
+
+    }
+
+
     if (empty(trim($_POST["password"]))) {
         $password_err = "Por favor ingrese una contraseña.";
     } elseif (strlen(trim($_POST["password"])) < 8) {
@@ -137,6 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $confirm_password_err = "Las contraseñas no coinciden.";
         }
     }
+
+
 
 
     $name_validation = validateDate($nombre);
@@ -159,7 +168,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $pass_validation = validatePass($password);
-
     if ($pass_validation['error']) {
 
         $password_err = $pass_validation['result'];
@@ -168,17 +176,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($email_err) && empty($nombre_err) && empty($apellido_err) && empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
 
-
-        $sql = "INSERT INTO users (name, surname, email, username, password) VALUES (?, ?, ?, ?, ?)";
+        echo '<img src="data:image/jpeg;base64,' . $imageBase64 . '" alt="User Image">';
+        $sql = "INSERT INTO users (name, surname, email, username, password,image) VALUES (?, ?, ?, ?, ?,?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-            mysqli_stmt_bind_param($stmt, "sssss", $param_nombre, $param_apellido, $param_email, $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "ssssss", $param_nombre, $param_apellido, $param_email, $param_username, $param_password, $param_image);
 
             $param_email = $email;
             $param_nombre = $nombre;
             $param_apellido = $apellido;
             $param_username = $username;
+            $param_image = $imageData;
             $param_password = password_hash($password, PASSWORD_DEFAULT);
+
+
+
+
 
             if (mysqli_stmt_execute($stmt)) {
 
@@ -200,6 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_close($link);
 }
+
 ?>
 
 
@@ -282,16 +296,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="w-50 ">
                 <h2 class="text-center bold">Agrega un Usuario</h1>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data   "
+                        method="post">
 
-
-                        <div class="form-group <?php echo (!empty($nombre_err)) ? 'has-error' : ''; ?>">
-                            <label>Nombre</label>
-                            <input type="text" required name="nombre" class="form-control" value="<?php echo $nombre; ?>">
+                        <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
+                            <label>Selecciona foto de perfil</label>
+                            <input type="file" accept="image/jpeg" name="image">
                             <span class="help-block">
-                                <?php echo $nombre_err; ?>
+                                <?php echo $image_err; ?>
                             </span>
                         </div>
+
                         <div class="form-group <?php echo (!empty($apellido_err)) ? 'has-error' : ''; ?>">
                             <label>Apellido</label>
                             <input type="text" required name="apellido" class="form-control"
@@ -331,6 +346,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <?php echo $confirm_password_err; ?>
                             </span>
                         </div>
+
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Ingresar">
                             <br><br>
@@ -348,7 +364,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>Por favor complete este formulario para crear una cuenta.</p>
             </div>
             <div class="wrapper w-50 h-10">
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data"
+                    method="post">
 
                     <div class="form-group <?php echo (!empty($nombre_err)) ? 'has-error' : ''; ?>">
                         <label>Nombre</label>
@@ -392,6 +409,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             value="<?php echo $confirm_password; ?>">
                         <span class="help-block">
                             <?php echo $confirm_password_err; ?>
+                        </span>
+                    </div>
+                    <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
+                        <label>Selecciona foto de perfil</label>
+                        <input type="file" accept="image/jpeg" name="image" value="<?php echo $image; ?>">
+                        <span class="help-block">
+                            <?php echo $image_err; ?>
                         </span>
                     </div>
                     <div class="form-group">

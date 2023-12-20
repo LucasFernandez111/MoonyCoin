@@ -33,6 +33,14 @@
     <link href="css/magnific-popup.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+
+    <style>
+        .img-profile {
+            object-fit: cover;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
     <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
@@ -49,7 +57,7 @@
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container">
+        <div class="container d-flex justify-content-center align-items-center">
 
 
             <a class="navbar-brand logo-image" href="index.php">Moonycoin</a>
@@ -104,6 +112,7 @@
 
 
                             ?>
+
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="logout.php"><span class="item-text">Cerrar sesión</span></a>
                         </div>
@@ -119,10 +128,19 @@
                         } else {
 
                             $dataUser = unserialize($_COOKIE['dataUser']);
-                            echo ' <span class="text-white text-center">' . $dataUser['user'] . '</span>';
+
+                            $showImage = getImage();
+
+                            echo '<div class="d-flex justify-content-center align-items-center " style="gap: 12px;">
+                            <span class="text-white">' . $dataUser['user'] . '</span>
+                            <img src="data:image/jpeg;base64,' . $showImage . '"  class ="rounded-circle img-profile">
+                            </div>
+                          
+                            ';
+
+
+
                         }
-
-
                         ?>
 
 
@@ -138,7 +156,7 @@
     <!-- Header -->
     <header id="header" class="header">
         <div class="header-content">
-            <div class="container">
+            <div class="container ">
                 <div class="row">
                     <div class="col-lg-6 col-xl-5">
                         <div class="text-container">
