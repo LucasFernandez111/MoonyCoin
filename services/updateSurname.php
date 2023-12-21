@@ -15,7 +15,7 @@ if (!$result) {
     die('Error al actualizar appelido.' . mysqli_error($link));
 } else {
 
-    echo "Se actualizo el apellido correctamente.";
+    header('Location: ../index.php');
 }
 
 

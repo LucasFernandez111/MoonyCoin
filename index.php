@@ -95,13 +95,12 @@
                             <a class="dropdown-item" href="./pages/changeSurname.php"><span class="item-text">
                                     Cambiar Apellido</span></a>
                             <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
-                                    ver usuarios</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
+
                             <a class="dropdown-item" href="reset-userName.php"><span class="item-text">
                                     cambiar nombre de usuario</span></a>
                             <div class="dropdown-items-divide-hr"></div>
-
+                            <a class="dropdown-item" href="recucontra.php"><span class="item-text">
+                                    Recuperar Contraseña</span></a>
                             <?php
 
                             if (isset($_COOKIE['dataUser'])) {
@@ -111,6 +110,7 @@
                                 $userAdmin = 'admin1';
                                 if ($dataUser['user'] === $userAdmin) {
                                     echo ' 
+                            <div class="dropdown-items-divide-hr"></div>
                                 
                             <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
                                     ver usuarios</span></a>

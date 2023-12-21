@@ -1,4 +1,3 @@
-
 <?php
 
 require_once "config.php";
@@ -9,39 +8,39 @@ $username_err = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    
+
     if (empty(trim($_POST["username"]))) {
         $username_err = "Por favor, ingresa un usuario.";
     } else {
         $username = trim($_POST["username"]);
     }
 
-    
+
     if (empty($username_err)) {
-        
+
         $sql = "SELECT password FROM users WHERE username = ?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
-            
+
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
             $param_username = $username;
 
-           
+
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_store_result($stmt);
 
-                
+
                 if (mysqli_stmt_num_rows($stmt) == 1) {
-                  
+
                     mysqli_stmt_bind_result($stmt, $hashed_password);
 
                     if (mysqli_stmt_fetch($stmt)) {
                         $password = $hashed_password;
                     }
 
-                   
-                     
+
+
                 } else {
                     $username_err = "No hay ninguna cuenta registrada con ese usuario.";
                 }
@@ -49,12 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Algo salió mal, por favor vuelve a intentarlo.";
             }
 
-            
+
             mysqli_stmt_close($stmt);
         }
     }
 
-    
+
     mysqli_close($link);
 }
 ?>
@@ -66,7 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Recuperar Contraseña</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
     <style type="text/css">
         body {
             font: 14px sans-serif;
@@ -121,13 +121,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Usuario</label>
                 <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
-                <span class="help-block"><?php echo $username_err; ?></span>
+                <span class="help-block">
+                    <?php echo $username_err; ?>
+                </span>
             </div>
-            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                <label>la contraseña para el usuario es:</label>
-                <input type="text" value="<?php echo $password; ?>">
-                
-            </div>
+
+
+            <?php if (!empty($password)) {
+                echo '<div class="form-group ' . (!empty($username_err) ? 'has-error' : '') . '">
+            <label>Contraseña recuperada: ' . $password . '</label>
+          </div>';
+            }
+
+            ?>
+
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Mostrar Contraseña">
             </div>
