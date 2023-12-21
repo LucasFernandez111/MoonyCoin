@@ -15,7 +15,7 @@ if (!$result) {
     die('Error al actualizar nombre.' . mysqli_error($link));
 } else {
 
-    header('Location: ../logout.php');
+    header('Location: ../index.php');
 }
 
 

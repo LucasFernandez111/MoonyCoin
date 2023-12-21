@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once "config.php";
 include('./functions/functions.php');
 
@@ -201,6 +201,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $userAdmin = 'admin1';
                 if ($user === $userAdmin) {
+
+                    $_SESSION['createUser'] = true;
                     header("Location: register.php");
                     exit;
                 }
@@ -288,19 +290,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php
 
+    if ($_SESSION['createUser']) {
+        echo "<div class='alert alert-success'>
+        <strong>Usuario</strong> creado correctamente!.
+      </div>";
+        session_destroy();
+
+    }
+
     $userAdmin = 'admin1';
     if ($user === $userAdmin) {
         ?>
+
         <div class=" mt-2 p-3 container bg-dark w-50 h-25 d-flex justify-content-center align-item-center rounded">
 
 
             <div class="w-50 ">
                 <h2 class="text-center bold">Agrega un Usuario</h1>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data   "
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data"
                         method="post">
 
-
-
+                        <div class="form-group <?php echo (!empty($nombre_err)) ? 'has-error' : ''; ?>">
+                            <label>Nombre</label>
+                            <input type="text" required name="nombre" class="form-control" value="<?php echo $nombre; ?>">
+                            <span class="help-block">
+                                <?php echo $nombre_err; ?>
+                            </span>
+                        </div>
                         <div class="form-group <?php echo (!empty($apellido_err)) ? 'has-error' : ''; ?>">
                             <label>Apellido</label>
                             <input type="text" required name="apellido" class="form-control"
@@ -336,98 +352,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label>Confirmar Contraseña</label>
                             <input type="password" required name="confirm_password" class="form-control"
                                 value="<?php echo $confirm_password; ?>">
-                            <span class="help-block ">
+                            <span class="help-block">
                                 <?php echo $confirm_password_err; ?>
                             </span>
                         </div>
                         <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
                             <label>Selecciona foto de perfil</label>
-                            <input type="file" accept="image/jpeg" required name="image">
-                            <br>
-                            <span class="help-block ">
-
+                            <input type="file" accept="image/jpeg" name="image" value="<?php echo $image; ?>">
+                            <span class="help-block">
                                 <?php echo $image_err; ?>
                             </span>
                         </div>
-
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Ingresar">
                             <br><br>
                             <input type="reset" class="btn btn-default" value="Borrar">
                         </div>
+                        <p>¿Ya tienes una cuenta? <a href="login.php">Ingresa aquí</a>.</p>
                     </form>
-            </div>
-        </div>
-        <?php
-    } else {
-        ?>
-        <div class="d-flex justify-content-center  flex-column align-items-center ">
-            <div class="text-center">
-                <h1>Registro</h1>
-                <p>Por favor complete este formulario para crear una cuenta.</p>
-            </div>
-            <div class="wrapper w-50 h-10">
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data"
-                    method="post">
-
-                    <div class="form-group <?php echo (!empty($nombre_err)) ? 'has-error' : ''; ?>">
-                        <label>Nombre</label>
-                        <input type="text" required name="nombre" class="form-control" value="<?php echo $nombre; ?>">
-                        <span class="help-block">
-                            <?php echo $nombre_err; ?>
-                        </span>
-                    </div>
-                    <div class="form-group <?php echo (!empty($apellido_err)) ? 'has-error' : ''; ?>">
-                        <label>Apellido</label>
-                        <input type="text" required name="apellido" class="form-control" value="<?php echo $apellido; ?>">
-                        <span class="help-block">
-                            <?php echo $apellido_err; ?>
-                        </span>
-                    </div>
-                    <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-                        <label>Email</label>
-                        <input type="email" required name="email" class="form-control" value="<?php echo $email; ?>">
-                        <span class="help-block">
-                            <?php echo $email_err; ?>
-                        </span>
-                    </div>
-                    <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                        <label>Usuario</label>
-                        <input type="text" required name="username" class="form-control" value="<?php echo $username; ?>">
-                        <span class="help-block">
-                            <?php echo $username_err; ?>
-                        </span>
-                    </div>
-                    <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                        <label>Contraseña</label>
-                        <input type="password" required name="password" class="form-control"
-                            value="<?php echo $password; ?>">
-                        <span class="help-block">
-                            <?php echo $password_err; ?>
-                        </span>
-                    </div>
-                    <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-                        <label>Confirmar Contraseña</label>
-                        <input type="password" required name="confirm_password" class="form-control"
-                            value="<?php echo $confirm_password; ?>">
-                        <span class="help-block">
-                            <?php echo $confirm_password_err; ?>
-                        </span>
-                    </div>
-                    <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
-                        <label>Selecciona foto de perfil</label>
-                        <input type="file" accept="image/jpeg" name="image" value="<?php echo $image; ?>">
-                        <span class="help-block">
-                            <?php echo $image_err; ?>
-                        </span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Ingresar">
-                        <br><br>
-                        <input type="reset" class="btn btn-default" value="Borrar">
-                    </div>
-                    <p>¿Ya tienes una cuenta? <a href="login.php">Ingresa aquí</a>.</p>
-                </form>
             </div>
         </div>
         </div>
