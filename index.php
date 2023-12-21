@@ -94,33 +94,32 @@
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="./pages/changeSurname.php"><span class="item-text">
                                     Cambiar Apellido</span></a>
-
+                                    <div class="dropdown-items-divide-hr"></div>
+                                    <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
+                                    ver usuarios</span></a>
+                             <div class="dropdown-items-divide-hr"></div> 
+                           <a class="dropdown-item" href="reset-userName.php"><span class="item-text">
+                                    cambiar nombre de usuario</span></a>
+                           <div class="dropdown-items-divide-hr"></div>                           
 
                             <?php
+
+if (isset($_COOKIE['dataUser'])) {
 
                             $dataUser = getCookie();
 
                             $userAdmin = 'admin1';
                             if ($dataUser['user'] === $userAdmin) {
                                 echo ' 
-                                <div class="dropdown-items-divide-hr"></div>
+                                
                             <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
                                     ver usuarios</span></a>
                                 <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="register.php"><span class="item-text">
-                                    Agregar Usuarios</span></a>';
-                            }
-
-
-
-                            ?>
-
-                            <?php
-                            if (isset($_COOKIE['dataUser'])) {
-                                echo '<div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/uploadFilePage.php"><span class="item-text">
+                                    Agregar Usuarios</span></a> <div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/uploadFilePage.php"><span class="item-text">
     Subir archivos</span></a><div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/showFilePage.php"><span class="item-text">
     Ver Archivos</span></a>';
-                            }
+                            }}
                             ?>
 
 
@@ -133,10 +132,10 @@
                         <a class="nav-link page-scroll" href="#features">CARACTERÍSTICAS</a>
                     </li>
 
-
+                    <li class="nav-item">
                     <?php
-                    if (!isset($_COOKIE['dataUser'])) {
-                        echo ' <a class="btn-outline-sm" href="login.php"> ACCESO</a></li>';
+                     if (!isset($_COOKIE['dataUser'])) {
+                         echo '<a class="btn-outline-sm" href="login.php"> ACCESO </a></li>';
                     } else {
 
                         $dataUser = unserialize($_COOKIE['dataUser']);

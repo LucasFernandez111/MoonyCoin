@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if username exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $image);
+                   mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $image);
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
 
@@ -63,9 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                             );
-                            ;
 
 
+                            
                             $data_serializada = serialize($dataUser);
 
                             setcookie("dataUser", $data_serializada, time() + 3600);
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $password_err = "La contraseña que ha ingresado no es válida.";
                         }
                     }
-                } else {
+                 } else {
                     // Display an error message if username doesn't exist
                     $username_err = "No existe cuenta registrada con ese nombre de usuario.";
                 }

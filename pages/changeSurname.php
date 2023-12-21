@@ -8,19 +8,66 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>cambiar nombre</title>
+    <title>cambiar apellido</title>
 </head>
 
 <body>
-
+<h1>Cambia tu Apellido!</h1>
+    <p>Ingrese el nuevo apellido seleccionado.</p>
+<div class="wrapper">
     <form class="form-group" action="../services/updateSurname.php" method="post">
-
         <label for="surname">Ingrese su Apellido nuevo </label>
         <input type="text" name="surname" id="surname ">
 
 
         <input type="submit" value="Cambiar">
     </form>
+    <style type="text/css">
+        body {
+            font: 14px sans-serif;
+            background-color: #5f4dee;
+            color: white;
+        }
+
+        .wrapper {
+            width: 350px;
+            padding: 20px;
+            border: 1px solid #E1E1E1;
+            border-radius: 5px;
+            background-color: white;
+            color: grey;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        p {
+            text-align: center;
+            font: "Open Sans", sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            font: 700 2.5rem/3.125rem "Open Sans", sans-serif;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            width: 100%;
+            height: 3.125rem;
+            border: 1px solid #5f4dee;
+            border-radius: 1.5rem;
+            background-color: #5f4dee;
+            color: #fff;
+            font: "Open Sans", sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+
+    
 
 
 
