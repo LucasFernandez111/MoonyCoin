@@ -1,11 +1,13 @@
 <?php
 
-include('config.php');
+include('C:\xampp\htdocs\moonpag\config.php');
 
 
 function getCookie()
 {
-    
+    if(!isset($_COOKIE['dataUser'])){
+        return ;
+    }
     $data = unserialize($_COOKIE['dataUser']);
     $id = $data['id'];
     $user = $data['user'];
