@@ -299,15 +299,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data   "
                         method="post">
 
-                        <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
-                            <label>Selecciona foto de perfil</label>
-                            <input type="file" accept="image/jpeg" required name="image">
-                            <br>
-                            <span class="help-block ">
 
-                                <?php echo $image_err; ?>
-                            </span>
-                        </div>
 
                         <div class="form-group <?php echo (!empty($apellido_err)) ? 'has-error' : ''; ?>">
                             <label>Apellido</label>
@@ -346,6 +338,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 value="<?php echo $confirm_password; ?>">
                             <span class="help-block ">
                                 <?php echo $confirm_password_err; ?>
+                            </span>
+                        </div>
+                        <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
+                            <label>Selecciona foto de perfil</label>
+                            <input type="file" accept="image/jpeg" required name="image">
+                            <br>
+                            <span class="help-block ">
+
+                                <?php echo $image_err; ?>
                             </span>
                         </div>
 
