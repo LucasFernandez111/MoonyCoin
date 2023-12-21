@@ -1,10 +1,11 @@
 <?php
 
 require_once "config.php";
+include('./functions/functions.php');
 
 $email = $nombre = $apellido = $username = $password = $confirm_password = $image = "";
 $email_err = $nombre_err = $apellido_err = $username_err = $password_err = $confirm_password_err = $image_err = "";
-
+['user' => $user] = getCookie();
 function validatePass($pass)
 {
 
@@ -197,8 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_stmt_execute($stmt)) {
 
-                $data = unserialize($_COOKIE['dataUser']);
-                $user = $data['user'];
+
                 $userAdmin = 'admin1';
                 if ($user === $userAdmin) {
                     header("Location: register.php");
@@ -287,9 +287,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <?php
-    // Suponiendo que $user y $userAdmin están definidos antes de esta sección
-    $data = unserialize($_COOKIE['dataUser']);
-    $user = $data['user'];
+
     $userAdmin = 'admin1';
     if ($user === $userAdmin) {
         ?>

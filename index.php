@@ -94,23 +94,23 @@
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="./pages/changeSurname.php"><span class="item-text">
                                     Cambiar Apellido</span></a>
-                                    <div class="dropdown-items-divide-hr"></div>
-                                    <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
                                     ver usuarios</span></a>
-                             <div class="dropdown-items-divide-hr"></div> 
-                           <a class="dropdown-item" href="reset-userName.php"><span class="item-text">
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="reset-userName.php"><span class="item-text">
                                     cambiar nombre de usuario</span></a>
-                           <div class="dropdown-items-divide-hr"></div>                           
+                            <div class="dropdown-items-divide-hr"></div>
 
                             <?php
 
-if (isset($_COOKIE['dataUser'])) {
+                            if (isset($_COOKIE['dataUser'])) {
 
-                            $dataUser = getCookie();
+                                $dataUser = getCookie();
 
-                            $userAdmin = 'admin1';
-                            if ($dataUser['user'] === $userAdmin) {
-                                echo ' 
+                                $userAdmin = 'admin1';
+                                if ($dataUser['user'] === $userAdmin) {
+                                    echo ' 
                                 
                             <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
                                     ver usuarios</span></a>
@@ -119,7 +119,8 @@ if (isset($_COOKIE['dataUser'])) {
                                     Agregar Usuarios</span></a> <div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/uploadFilePage.php"><span class="item-text">
     Subir archivos</span></a><div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/showFilePage.php"><span class="item-text">
     Ver Archivos</span></a>';
-                            }}
+                                }
+                            }
                             ?>
 
 
@@ -133,16 +134,16 @@ if (isset($_COOKIE['dataUser'])) {
                     </li>
 
                     <li class="nav-item">
-                    <?php
-                     if (!isset($_COOKIE['dataUser'])) {
-                         echo '<a class="btn-outline-sm" href="login.php"> ACCESO </a></li>';
-                    } else {
+                        <?php
+                        if (!isset($_COOKIE['dataUser'])) {
+                            echo '<a class="btn-outline-sm" href="login.php"> ACCESO </a></li>';
+                        } else {
 
-                        $dataUser = unserialize($_COOKIE['dataUser']);
+                            $dataUser = unserialize($_COOKIE['dataUser']);
 
-                        $showImage = getImage();
+                            $showImage = getImage();
 
-                        echo '<li class="nav-item">
+                            echo '<li class="nav-item">
                       
 
                             <span class="nav text-white text-center mt-1" >' . $dataUser['user'] . '</span>
@@ -156,8 +157,8 @@ if (isset($_COOKIE['dataUser'])) {
 
 
 
-                    }
-                    ?>
+                        }
+                        ?>
 
 
 
@@ -560,7 +561,7 @@ if (isset($_COOKIE['dataUser'])) {
         <div class="d-flex justify-content-center align-item-center">
             <img src="astro.png" class="w-25 h-25" />
             <video width="250" height="380" controls autoplay>
-                <source src="tutorial.mp4" autoplay type="video/mp4">
+                <source src="tutorial.mp4" type="video/mp4">
             </video>
             <img src="astro.png" class="w-25 h-25" />
         </div>
