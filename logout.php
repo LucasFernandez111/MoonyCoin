@@ -1,5 +1,5 @@
 <?php
 setcookie('dataUser', '', time() - 100);
-header("location: login.php");
+header("location: index.php");
 exit;
 ?>

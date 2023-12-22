@@ -36,6 +36,6 @@ if ($fileSize > 0) {
 
     $link->close();
 } else {
-    echo "Please select a file.";
+    echo "Selecciona un archivo.";
 }
 ?>

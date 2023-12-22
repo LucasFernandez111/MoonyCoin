@@ -15,7 +15,7 @@ if (!$result) {
     die('Error al actualizar nombre.' . mysqli_error($link));
 } else {
 
-    echo "Se actualizo el nombre correctamente.";
+    header('Location: ../index.php');
 }
 
 

@@ -1,5 +1,3 @@
-<?php include('./functions/functions.php'); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,14 +31,6 @@
     <link href="css/magnific-popup.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
-
-    <style>
-        .img-profile {
-            object-fit: cover;
-            width: 40px;
-            height: 40px;
-        }
-    </style>
     <!-- Favicon  -->
     <link rel="icon" href="images/favicon.png">
 </head>
@@ -57,7 +47,7 @@
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container d-flex justify-content-center align-items-center">
+        <div class="container">
 
 
             <a class="navbar-brand logo-image" href="index.php">Moonycoin</a>
@@ -86,8 +76,7 @@
                             aria-haspopup="true" aria-expanded="false">Más</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="reset-password.php"><span class="item-text">Cambiar
-                                    contraseña</span></a>
-
+                                    contraseña</span></a>     
                             <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="./pages/changeName.php"><span class="item-text">
                                     Cambiar Nombre</span></a>
@@ -95,69 +84,42 @@
                             <a class="dropdown-item" href="./pages/changeSurname.php"><span class="item-text">
                                     Cambiar Apellido</span></a>
                             <div class="dropdown-items-divide-hr"></div>
-
-                            <a class="dropdown-item" href="reset-userName.php"><span class="item-text">
-                                    cambiar nombre de usuario</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="recucontra.php"><span class="item-text">
-                                    Recuperar Contraseña</span></a>
-                            <?php
-
-                            if (isset($_COOKIE['dataUser'])) {
-
-                                $dataUser = getCookie();
-
-                                $userAdmin = 'admin1';
-                                if ($dataUser['user'] === $userAdmin) {
-                                    echo ' 
-                            <div class="dropdown-items-divide-hr"></div>
-                                
                             <a class="dropdown-item" href="./services/listUser.php"><span class="item-text">
                                     ver usuarios</span></a>
-                                <div class="dropdown-items-divide-hr"></div>
+                             <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="logout.php"><span class="item-text">Cerrar sesión</span></a>
+                            <div class="dropdown-items-divide-hr"></div>
+                            <a class="dropdown-item" href="reset-userName.php"><span class="item-text">Cambiar nombre de usuario</span></a>
+                            <?php
+                            $data = unserialize($_COOKIE['dataUser']);
+                            $user = $data['user'];
+                            $userAdmin = 'admin1';
+                            if ($user === $userAdmin) {
+                                echo '  <div class="dropdown-items-divide-hr"></div>
                             <a class="dropdown-item" href="register.php"><span class="item-text">
-                                    Agregar Usuarios</span></a> <div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/uploadFilePage.php"><span class="item-text">
-    Subir archivos</span></a><div class="dropdown-items-divide-hr"></div> <a class="dropdown-item" href="./pages/showFilePage.php"><span class="item-text">
-    Ver Archivos</span></a>';
-                                }
+                                    Agregar Usuarios</span></a>';
                             }
+
                             ?>
 
 
-
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="logout.php"><span class="item-text">Cerrar sesión</span></a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll" href="#features">CARACTERÍSTICAS</a>
                     </li>
-
                     <li class="nav-item">
+
                         <?php
                         if (!isset($_COOKIE['dataUser'])) {
-                            echo '<a class="btn-outline-sm" href="login.php"> ACCESO </a></li>';
+                            echo ' <a class="btn-outline-sm" href="login.php"> ACCESO</a></li>';
                         } else {
 
                             $dataUser = unserialize($_COOKIE['dataUser']);
-
-                            $showImage = getImage();
-
-                            echo '<li class="nav-item">
-                      
-
-                            <span class="nav text-white text-center mt-1" >' . $dataUser['user'] . '</span>
-                            </li>
-                            <li class="nav-item">
-                            <img src="data:image/jpeg;base64,' . $showImage . '"  class ="rounded-circle img-profile mb-1 ml-2 ">
-                            
-                            </li>
-                          
-                            ';
-
-
-
+                            echo ' <span class="text-white text-center">' . $dataUser['user'] . '</span>';
                         }
+
+
                         ?>
 
 
@@ -173,7 +135,7 @@
     <!-- Header -->
     <header id="header" class="header">
         <div class="header-content">
-            <div class="container ">
+            <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-xl-5">
                         <div class="text-container">
@@ -561,7 +523,7 @@
         <div class="d-flex justify-content-center align-item-center">
             <img src="astro.png" class="w-25 h-25" />
             <video width="250" height="380" controls autoplay>
-                <source src="tutorial.mp4" type="video/mp4">
+                <source src="tutorial.mp4" autoplay type="video/mp4">
             </video>
             <img src="astro.png" class="w-25 h-25" />
         </div>

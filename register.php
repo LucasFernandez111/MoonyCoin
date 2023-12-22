@@ -1,10 +1,11 @@
 <?php
 
 require_once "config.php";
+include('./functions/functions.php');
 
 $email = $nombre = $apellido = $username = $password = $confirm_password = $image = "";
 $email_err = $nombre_err = $apellido_err = $username_err = $password_err = $confirm_password_err = $image_err = "";
-
+['user' => $user] = getCookie();
 function validatePass($pass)
 {
 
@@ -197,10 +198,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (mysqli_stmt_execute($stmt)) {
 
-                $data = unserialize($_COOKIE['dataUser']);
-                $user = $data['user'];
+
                 $userAdmin = 'admin1';
                 if ($user === $userAdmin) {
+
+
                     header("Location: register.php");
                     exit;
                 }
@@ -287,30 +289,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <?php
-    // Suponiendo que $user y $userAdmin están definidos antes de esta sección
-    $data = unserialize($_COOKIE['dataUser']);
-    $user = $data['user'];
+
+
+
     $userAdmin = 'admin1';
     if ($user === $userAdmin) {
         ?>
+
         <div class=" mt-2 p-3 container bg-dark w-50 h-25 d-flex justify-content-center align-item-center rounded">
 
 
             <div class="w-50 ">
                 <h2 class="text-center bold">Agrega un Usuario</h1>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data   "
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data"
                         method="post">
 
-                        <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
-                            <label>Selecciona foto de perfil</label>
-                            <input type="file" accept="image/jpeg" required name="image">
-                            <br>
-                            <span class="help-block ">
-
-                                <?php echo $image_err; ?>
+                        <div class="form-group <?php echo (!empty($nombre_err)) ? 'has-error' : ''; ?>">
+                            <label>Nombre</label>
+                            <input type="text" required name="nombre" class="form-control" value="<?php echo $nombre; ?>">
+                            <span class="help-block">
+                                <?php echo $nombre_err; ?>
                             </span>
                         </div>
-
                         <div class="form-group <?php echo (!empty($apellido_err)) ? 'has-error' : ''; ?>">
                             <label>Apellido</label>
                             <input type="text" required name="apellido" class="form-control"
@@ -346,20 +346,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label>Confirmar Contraseña</label>
                             <input type="password" required name="confirm_password" class="form-control"
                                 value="<?php echo $confirm_password; ?>">
-                            <span class="help-block ">
+                            <span class="help-block">
                                 <?php echo $confirm_password_err; ?>
                             </span>
                         </div>
-
+                        <div class="form-group <?php echo (!empty($image_err)) ? 'has-error' : ''; ?>">
+                            <label>Selecciona foto de perfil</label>
+                            <input type="file" accept="image/jpeg" name="image" value="<?php echo $image; ?>">
+                            <span class="help-block">
+                                <?php echo $image_err; ?>
+                            </span>
+                        </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary" value="Ingresar">
                             <br><br>
                             <input type="reset" class="btn btn-default" value="Borrar">
                         </div>
+                        <p>¿Ya tienes una cuenta? <a href="login.php">Ingresa aquí</a>.</p>
                     </form>
             </div>
         </div>
+        </div>
         <?php
+
+
     } else {
         ?>
         <div class="d-flex justify-content-center  flex-column align-items-center ">
@@ -436,12 +446,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     ?>
 
-    <!-- Otro contenido de tu página si es necesario -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Otros scripts que puedas necesitar -->
+
 
 </body>
 

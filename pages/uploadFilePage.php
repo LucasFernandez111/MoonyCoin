@@ -1,3 +1,8 @@
+<?php include('../functions/functions.php');
+['user' => $user] = getCookie();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +23,12 @@
             <div class="input-group">
 
                 <div class="custom-file">
-                    <input type="file" id="inputGroupFile01" accept="*" name="file">
+                    <input type="file" id="inputGroupFile01" accept="<?php if ($user === 'admin1') {
+                        echo " accept='.jpg, .jpeg, .png, .gif'";
+
+                    } else {
+                        echo " accept='*'";
+                    } ?>" name="file">
                 </div>
             </div>
             <input type="submit" class="btn w-25 mt-5 text-white" style="background-color:#5f4dee;"
